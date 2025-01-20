@@ -73,7 +73,7 @@ namespace ejercicioTelegrama
             this.chkUrgente = new System.Windows.Forms.CheckBox();
             this.txtPrecio = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCalcularPrecio = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -89,7 +89,7 @@ namespace ejercicioTelegrama
             this.txtTelegrama.AutoSize = true;
             this.txtTelegrama.Location = new System.Drawing.Point(19, 9);
             this.txtTelegrama.Name = "txtTelegrama";
-            this.txtTelegrama.Size = new System.Drawing.Size(34, 13);
+            this.txtTelegrama.Size = new System.Drawing.Size(41, 16);
             this.txtTelegrama.TabIndex = 1;
             this.txtTelegrama.Text = "Texto";
             this.txtTelegrama.Click += new System.EventHandler(this.label3_Click);
@@ -99,7 +99,7 @@ namespace ejercicioTelegrama
             this.chkUrgente.AutoSize = true;
             this.chkUrgente.Location = new System.Drawing.Point(22, 152);
             this.chkUrgente.Name = "chkUrgente";
-            this.chkUrgente.Size = new System.Drawing.Size(70, 17);
+            this.chkUrgente.Size = new System.Drawing.Size(84, 20);
             this.chkUrgente.TabIndex = 2;
             this.chkUrgente.Text = "Urgente?";
             this.chkUrgente.UseVisualStyleBackColor = true;
@@ -108,7 +108,7 @@ namespace ejercicioTelegrama
             // 
             this.txtPrecio.Location = new System.Drawing.Point(61, 197);
             this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.Size = new System.Drawing.Size(100, 20);
+            this.txtPrecio.Size = new System.Drawing.Size(100, 22);
             this.txtPrecio.TabIndex = 3;
             // 
             // label1
@@ -116,23 +116,24 @@ namespace ejercicioTelegrama
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(18, 200);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.Size = new System.Drawing.Size(45, 16);
             this.label1.TabIndex = 4;
             this.label1.Text = "Coste:";
             // 
-            // button1
+            // btnCalcularPrecio
             // 
-            this.button1.Location = new System.Drawing.Point(384, 188);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(87, 35);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Calcular";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCalcularPrecio.Location = new System.Drawing.Point(384, 188);
+            this.btnCalcularPrecio.Name = "btnCalcularPrecio";
+            this.btnCalcularPrecio.Size = new System.Drawing.Size(87, 35);
+            this.btnCalcularPrecio.TabIndex = 5;
+            this.btnCalcularPrecio.Text = "Calcular";
+            this.btnCalcularPrecio.UseVisualStyleBackColor = true;
+            this.btnCalcularPrecio.Click += new System.EventHandler(this.btnCalcularPrecio_Click_1);
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(538, 261);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCalcularPrecio);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.chkUrgente);
@@ -147,6 +148,55 @@ namespace ejercicioTelegrama
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCalcularPrecio_Click_1(object sender, EventArgs e)
+        {
+            string textoTelegrama;
+            char tipoTelegrama = ' ';
+            int numPalabras = 0;
+            double coste;
+            //Leo el telegrama
+            textoTelegrama = txtTelegrama.Text;
+            // telegrama urgente?
+            if (chkUrgente.Checked)
+            {
+                tipoTelegrama = 'u';
+            }
+            //Obtengo el número de palabras que forma el telegrama
+            numPalabras = textoTelegrama.Length;
+            //Si el telegrama es ordinario
+            if (tipoTelegrama == 'o')
+            {
+                if (numPalabras <= 10)
+                {
+                    coste = 2.5;
+                }
+                else
+                {
+                    coste = 0.5 * numPalabras;
+                }
+            }
+            else
+            //Si el telegrama es urgente
+            {
+                if (tipoTelegrama == 'u')
+                {
+                    if (numPalabras <= 10)
+                    {
+                        coste = 5;
+                    }
+                    else
+                    {
+                        coste = 5 + 0.75 * (numPalabras - 10);
+                    }
+                }
+                else
+                {
+                    coste = 0;
+                }
+            }
+            txtPrecio.Text = coste.ToString() + " euros";
         }
     }
 }
