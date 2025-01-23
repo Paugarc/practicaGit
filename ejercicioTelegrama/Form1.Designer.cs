@@ -23,10 +23,11 @@
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label txtTelegrama;
-        private System.Windows.Forms.CheckBox chkUrgente;
         private System.Windows.Forms.TextBox txtPrecio;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnCalcularPrecio;
+        private System.Windows.Forms.RadioButton cbOrdinario;
+        private System.Windows.Forms.RadioButton cbUrgente;
     }
 }
 
